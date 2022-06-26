@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 1</title>
+    <link rel="stylesheet" href="Bootstrap/css/bootstrap.min.css">
+    <!-- Local CSS file  -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col w-100">
+                <img src="Netflix logo/netflix.webp" class="w-100 h-100" alt="">
+            </div>
+        </div>
+    </div>
+    <!-- Banner Ends  -->
+    <h1 class="text-center my-5" style="color: #0c074e;font-size: 60px;font-weight:bold;">TOP 10 MOST VIEWED NETFLIX SERIES</h1>
+    <!-- Movies Section  -->
+
+
+   <div class="container my-5" id="mainContainer">
+     <div class="row d-flex justify-content-center" id="inner"></div>
+   </div>
+
+
+    <!-- Javascript Stup Below  -->
+    <script src="Bootstrap/js/bootstrap.min.js"></script>
+    <script src="jQuery/jquery.min.js"></script>
+
+    <script>
+
+
+        
+
+
+        $(document).ready(function(){
+            const settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "https://netflix-weekly-top-10.p.rapidapi.com/api/movie",
+                    "method": "GET",
+                    "headers": {
+                        "X-RapidAPI-Key": "9268150071msh4b5a6edc0484f21p1056d5jsn2b40f42829d6",
+                        "X-RapidAPI-Host": "netflix-weekly-top-10.p.rapidapi.com"
+                    }
+            };
+
+            
+
+            $("p").append("<h1>Working</h1>");
+
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+                var rows = "";
+                let i = 0;
+                $.each(response,function(index,dataItem){
+
+                    let movieNames = ["hustle","spiderhead","checkin","halftime","interceptor1","collision","trees of peace","sonic","perfect pairing1","Senior-Year"];
+
+                    
+                    
+            rows += `
+                    <div class="col text-center d-flex justify-content-center my-4" >
+                        <div class="card" style="width: 28rem;" id="col">
+                         <img class="card-img-top" style="height: 15rem;" src="images/${movieNames[i]}.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                 <h2 class="card-title">${dataItem.name} <span style="color: green;font-size:18px;">${dataItem.hoursviewed} views</span></h2>
+                             </div>
+                         </div>
+                    </div>
+            
+                                `;
+                    i = i+1;
+                                console.log(dataItem.name)
+                })
+                $("#inner").append(rows);
+            });
+
+           
+            
+        })
+    </script>
+</body>
+</html>
